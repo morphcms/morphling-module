@@ -1,0 +1,23 @@
+{
+    "name": "binomeway/morphling",
+    "description": "",
+    "authors": [
+        {
+            "name": "Codrin Axinte",
+            "email": "codrin.axinte@binomeway.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Morphling\\": ""
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Morphling",
+    "alias": "morphling",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Morphling\\Providers\\MorphlingServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
