@@ -6,10 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit204068fca412baf07fa76905d73e52b2
 {
-    public static $files = array (
-        '18b2cc68a2e1322c161bc74a683c002d' => __DIR__ . '/../..' . '/helpers.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
         'M' => 
         array (
@@ -26,25 +22,6 @@ class ComposerStaticInit204068fca412baf07fa76905d73e52b2
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Modules\\Morphling\\Bootstrappers\\MorphlingBootstrapper' => __DIR__ . '/../..' . '/Bootstrappers/MorphlingBootstrapper.php',
-        'Modules\\Morphling\\Contracts\\Bootstrapper' => __DIR__ . '/../..' . '/Contracts/Bootstrapper.php',
-        'Modules\\Morphling\\Database\\Seeders\\MorphlingDatabaseSeeder' => __DIR__ . '/../..' . '/Database/Seeders/MorphlingDatabaseSeeder.php',
-        'Modules\\Morphling\\Enums\\HasSelectOptions' => __DIR__ . '/../..' . '/Enums/HasSelectOptions.php',
-        'Modules\\Morphling\\Enums\\HasValues' => __DIR__ . '/../..' . '/Enums/HasValues.php',
-        'Modules\\Morphling\\Http\\Controllers\\BootstrapController' => __DIR__ . '/../..' . '/Http/Controllers/BootstrapController.php',
-        'Modules\\Morphling\\Nova\\Actions\\UpdateStatus' => __DIR__ . '/../..' . '/Nova/Actions/UpdateStatus.php',
-        'Modules\\Morphling\\Nova\\Filters\\ByStatus' => __DIR__ . '/../..' . '/Nova/Filters/ByStatus.php',
-        'Modules\\Morphling\\Nova\\Preset' => __DIR__ . '/../..' . '/Nova/Preset.php',
-        'Modules\\Morphling\\Providers\\MorphlingServiceProvider' => __DIR__ . '/../..' . '/Providers/MorphlingServiceProvider.php',
-        'Modules\\Morphling\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/Providers/RouteServiceProvider.php',
-        'Modules\\Morphling\\Rules\\OwnsModel' => __DIR__ . '/../..' . '/Rules/OwnsModel.php',
-        'Modules\\Morphling\\Services\\BootstrapService' => __DIR__ . '/../..' . '/Services/BootstrapService.php',
-        'Modules\\Morphling\\Traits\\HasOwner' => __DIR__ . '/../..' . '/Traits/HasOwner.php',
-        'Modules\\Morphling\\Traits\\HasTranslatableSlug' => __DIR__ . '/../..' . '/Traits/HasTranslatableSlug.php',
-        'Modules\\Morphling\\Traits\\HasUuid' => __DIR__ . '/../..' . '/Traits/HasUuid.php',
-        'Modules\\Morphling\\Traits\\InteractsWithCSV' => __DIR__ . '/../..' . '/Traits/InteractsWithCSV.php',
-        'Modules\\Morphling\\Traits\\TableHelper' => __DIR__ . '/../..' . '/Traits/TableHelper.php',
-        'Modules\\Morphling\\View\\Components\\NovaToolMenu' => __DIR__ . '/../..' . '/View/Components/NovaToolMenu.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
