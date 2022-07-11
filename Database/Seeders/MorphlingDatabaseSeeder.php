@@ -4,6 +4,9 @@ namespace Modules\Morphling\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Morphling\Models\Module as ModuleModel;
+use Modules\Morphling\Services\Morphling;
+use Nwidart\Modules\Facades\Module;
 
 class MorphlingDatabaseSeeder extends Seeder
 {
@@ -16,6 +19,6 @@ class MorphlingDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        app(Morphling::class)->syncModules();
     }
 }

@@ -11,7 +11,7 @@ trait TableHelper
 {
     public static function __callStatic(string $name, array $arguments)
     {
-        return static::prefix() . Str::of($name)->snake() . collect($arguments)->join('.');
+        return static::prefix(). collect($arguments)->join('.');
     }
 
     protected static function prefix(): string

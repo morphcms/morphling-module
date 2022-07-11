@@ -4,6 +4,8 @@ namespace Modules\Morphling\Providers;
 
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
+use Modules\Morphling\Models\Module;
+use Modules\Morphling\Observer\ModuleObserver;
 use Modules\Morphling\Services\BootstrapService;
 
 
@@ -30,6 +32,8 @@ class MorphlingServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        Module::observe(ModuleObserver::class);
     }
 
     /**
@@ -99,11 +103,6 @@ class MorphlingServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(BootstrapService::class,
-            fn() => new BootstrapService(
-                config($this->moduleNameLower . '.bootstrap', [])
-            )
-        );
         $this->app->register(RouteServiceProvider::class);
     }
 

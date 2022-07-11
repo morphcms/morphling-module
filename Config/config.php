@@ -2,7 +2,5 @@
 
 return [
     'name' => 'Morphling',
-    'bootstrap' => [
-        \Modules\Morphling\Bootstrappers\MorphlingBootstrapper::class,
-    ],
+    'table_prefix' => 'morph_',
 ];
