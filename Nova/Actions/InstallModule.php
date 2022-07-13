@@ -10,15 +10,14 @@ use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Modules\Morphling\Services\Morphling;
-use Nwidart\Modules\Facades\Module;
 
 class InstallModule extends Action
 {
     use InteractsWithQueue, Queueable;
 
-
     /**
      * Perform the action on the given models.
+     *
      * @return mixed
      */
     public function handle(ActionFields $fields, Collection $models)
@@ -26,10 +25,8 @@ class InstallModule extends Action
         $module = $fields->get('module');
 
         try {
-
             $this->morphling()->install($module);
-
-        } catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return Action::danger($exception->getMessage());
         }
 

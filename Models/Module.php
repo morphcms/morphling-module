@@ -19,7 +19,7 @@ class Module extends Model
         'requirements' => 'json',
         'keywords' => 'json',
         'meta' => 'json',
-        'priority' => 'int'
+        'priority' => 'int',
     ];
 
     public function scopeEnabled($query)

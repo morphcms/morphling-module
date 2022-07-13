@@ -9,14 +9,13 @@ class Preset
 {
     public static function meta(string $column = 'Meta'): KeyValue
     {
-       return KeyValue::make($column)->nullable();
+        return KeyValue::make($column)->nullable();
     }
-
 
     public static function status(string $statusEnum, string $value, string $column = 'Status'): Badge
     {
-       return Badge::make($column)
-            ->displayUsing(fn() => $statusEnum::from($value)->value)
+        return Badge::make($column)
+            ->displayUsing(fn () => $statusEnum::from($value)->value)
             ->map($statusEnum::getNovaBadgeColors())
             ->exceptOnForms();
     }

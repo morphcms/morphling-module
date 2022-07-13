@@ -3,7 +3,6 @@
 namespace Modules\Morphling\Nova\Actions;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
@@ -18,7 +17,6 @@ class UpdateStatus extends Action
     public function __construct(protected string $statusEnum)
     {
     }
-
 
     /**
      * Perform the action on the given models.

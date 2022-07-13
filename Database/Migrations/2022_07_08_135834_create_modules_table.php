@@ -5,7 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Modules\Morphling\Utils\Table;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up()
     {
         Schema::create(Table::modules(), function (Blueprint $table) {

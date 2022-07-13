@@ -4,10 +4,8 @@ namespace Modules\Morphling\Traits;
 
 use App\Models\User;
 
-
 trait HasOwner
 {
-
     protected function ownerColumnName(): string
     {
         return 'user_id';

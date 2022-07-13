@@ -5,14 +5,11 @@ namespace Modules\Morphling\Services;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-use Laravel\Nova\Nova;
 use Modules\Morphling\Events\RegisterModulesNovaTools;
-use Modules\Morphling\Nova\MorphTool;
 use Modules\Morphling\Models\Module as ModuleEntity;
-use Modules\Morphling\Process\InstallModule;
+use Modules\Morphling\Nova\MorphTool;
 use Nwidart\Modules\Facades\Module as ModuleActivator;
 use Nwidart\Modules\Process\Installer;
-
 
 class Morphling
 {
@@ -24,14 +21,14 @@ class Morphling
     /**
      *  Collect all module tools.
      *
-     * @param array $tools
+     * @param  array  $tools
      * @return array
      */
     public static function getNovaTools(array $tools = []): array
     {
         return collect([
-            MorphTool::make(),
             ...event(new RegisterModulesNovaTools()),
+            MorphTool::make(),
         ])
             ->filter() // Filter out empty values
             ->flatten()
@@ -63,8 +60,9 @@ class Morphling
     }
 
     /**
-     * @param string $package
+     * @param  string  $package
      * @return void
+     *
      * @throws \Exception
      */
     public function install(string $package, string $version = 'dev-main', string $type = 'github', bool $tree = false)
@@ -80,12 +78,12 @@ class Morphling
             $module = ModuleActivator::findOrFail(static::moduleNameFromPackage($package));
             $this->syncModule($module);
         });
-
     }
 
     private static function moduleNameFromPackage($package)
     {
         $parts = explode('/', $package);
+
         return Str::studly(Str::replaceLast('-module', '', end($parts)));
     }
 
@@ -128,7 +126,6 @@ class Morphling
             $this->syncModule($model->name);
         });
     }
-
 
     public function syncModules(): void
     {

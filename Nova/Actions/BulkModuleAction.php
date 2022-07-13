@@ -8,9 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Modules\Morphling\Services\Morphling;
-use Nwidart\Modules\Facades\Module;
 
 abstract class BulkModuleAction extends Action
 {
@@ -18,7 +16,6 @@ abstract class BulkModuleAction extends Action
 
     /**
      * Perform the action on the given models.
-     *
      */
     public function handle(ActionFields $fields, Collection $models)
     {
@@ -41,8 +38,7 @@ abstract class BulkModuleAction extends Action
         return Action::message($this->successMessage($countAffected, $total));
     }
 
-
-    abstract function moduleAction(\Modules\Morphling\Models\Module $model);
+    abstract public function moduleAction(\Modules\Morphling\Models\Module $model);
 
     protected function successMessage($affected, $total): string
     {
@@ -53,5 +49,4 @@ abstract class BulkModuleAction extends Action
     {
         return app(Morphling::class);
     }
-
 }

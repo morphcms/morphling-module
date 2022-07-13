@@ -3,14 +3,19 @@
 namespace Modules\Morphling\Nova\Resources;
 
 use Illuminate\Support\Arr;
-use Laravel\Nova\Fields\{Boolean, Number, Text, Textarea};
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
-use Modules\Morphling\Nova\Actions\{DeleteModule, ToggleModule, InstallModule, UpdateModule};
+use Modules\Morphling\Nova\Actions\DeleteModule;
+use Modules\Morphling\Nova\Actions\InstallModule;
+use Modules\Morphling\Nova\Actions\ToggleModule;
+use Modules\Morphling\Nova\Actions\UpdateModule;
 
 class Module extends Resource
 {
-
     public static string $model = \Modules\Morphling\Models\Module::class;
 
     public static $displayInNavigation = false;
@@ -18,7 +23,7 @@ class Module extends Resource
     public static $title = 'name';
 
     public static $search = [
-        'name', 'description', 'keywords', 'author', 'version'
+        'name', 'description', 'keywords', 'author', 'version',
     ];
 
     public static $tableStyle = 'tight';
@@ -34,7 +39,6 @@ class Module extends Resource
             Text::make(__('Title'), 'title')
                 ->showOnPreview()
                 ->sortable(),
-
 
             Text::make(__('Author'), 'author')
                 ->showOnPreview()
@@ -52,15 +56,15 @@ class Module extends Resource
                 ->sortable()
                 ->filterable()
                 ->hideFromIndex()
-                ->default(fn() => 0),
+                ->default(fn () => 0),
 
             Textarea::make(__('Keywords'), 'keywords')
                 ->showOnPreview()
-                ->displayUsing(fn() => Arr::join($this->keywords, ', '))
+                ->displayUsing(fn () => Arr::join($this->keywords, ', '))
                 ->rows(1),
 
             Textarea::make(__('Requirements'), 'requirements')
-                ->displayUsing(fn() => Arr::join($this->requirements, ', '))
+                ->displayUsing(fn () => Arr::join($this->requirements, ', '))
                 ->rows(2),
 
         ];
@@ -72,7 +76,7 @@ class Module extends Resource
             ToggleModule::make()->showInline(),
             UpdateModule::make()->showInline(),
             DeleteModule::make()->showInline()->exceptOnIndex(),
-           // InstallModule::make()->standalone(), // TODO: Not working yet. Modules must be installed manually
+            // InstallModule::make()->standalone(), // TODO: Not working yet. Modules must be installed manually
         ];
     }
 }

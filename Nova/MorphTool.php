@@ -10,7 +10,6 @@ use Modules\Morphling\Nova\Resources\Module;
 
 class MorphTool extends Tool
 {
-
     protected static array $resources = [
         Module::class,
     ];
@@ -24,6 +23,6 @@ class MorphTool extends Tool
     {
         return MenuSection::resource(Module::class)
             ->icon('chip')
-            ->canSee(fn() => true);
+            ->canSee(fn () => true);
     }
 }

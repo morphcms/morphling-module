@@ -16,8 +16,8 @@ class ModuleObserver
     {
 
         // TODO: Fire event that module updated.
-        if (!$entity->isDirty(['enabled'])) {
-                return;
+        if (! $entity->isDirty(['enabled'])) {
+            return;
         }
 
         // TODO: Refactor this to a job to improve performance.
