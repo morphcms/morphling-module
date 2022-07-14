@@ -2,10 +2,21 @@
 
 namespace Modules\Morphling\Nova\Actions;
 
-class UpdateModule extends BulkModuleAction
+use Laravel\Nova\Fields\ActionFields;
+use Modules\Morphling\Services\Morphling;
+use Modules\Morphling\Utils\BulkActionFluent;
+
+class UpdateModule extends BulkAction
 {
-    public function moduleAction(\Modules\Morphling\Models\Module $model)
+    public function runAction($model, ActionFields $fields)
     {
-        $this->morphling()->update($model);
+        app(Morphling::class)->update($model);
     }
+
+    protected function getBulkActionOptions(BulkActionFluent $bulkActionFluent): BulkActionFluent
+    {
+        return $bulkActionFluent->setResourceName('modules');
+    }
+
+
 }

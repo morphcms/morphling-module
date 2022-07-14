@@ -11,9 +11,7 @@
     "extra": {
         "laravel": {
             "providers": [],
-            "aliases": {
-
-            }
+            "aliases": {}
         }
     },
     "autoload": {
@@ -23,7 +21,8 @@
     },
     "require": {
         "laravel/nova": "^4.0",
-        "maatwebsite/excel": "^3.1"
+        "maatwebsite/excel": "^3.1",
+        "laravel/nova-log-viewer": "^0.1.2"
     },
     "repositories": [
         {

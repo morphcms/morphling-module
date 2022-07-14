@@ -5,10 +5,12 @@ namespace Modules\Morphling\Services;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use Laravel\Nova\LogViewer\LogViewer;
 use Modules\Morphling\Events\RegisterModulesNovaTools;
 use Modules\Morphling\Models\Module as ModuleEntity;
 use Modules\Morphling\Nova\MorphTool;
 use Nwidart\Modules\Facades\Module as ModuleActivator;
+use Nwidart\Modules\Laravel\Module;
 use Nwidart\Modules\Process\Installer;
 
 class Morphling
@@ -21,7 +23,7 @@ class Morphling
     /**
      *  Collect all module tools.
      *
-     * @param  array  $tools
+     * @param array $tools
      * @return array
      */
     public static function getNovaTools(array $tools = []): array
@@ -29,6 +31,7 @@ class Morphling
         return collect([
             ...event(new RegisterModulesNovaTools()),
             MorphTool::make(),
+            LogViewer::make()->canSeeWhen('viewLogs'),
         ])
             ->filter() // Filter out empty values
             ->flatten()
@@ -36,7 +39,7 @@ class Morphling
             ->toArray();
     }
 
-    public function fetchModulesFromRepository()
+    public function fetchModulesFromRepository(): array
     {
         // TODO: Implement
         // - https://github.com/composer/satis
@@ -60,7 +63,7 @@ class Morphling
     }
 
     /**
-     * @param  string  $package
+     * @param string $package
      * @return void
      *
      * @throws \Exception
@@ -78,6 +81,19 @@ class Morphling
             $module = ModuleActivator::findOrFail(static::moduleNameFromPackage($package));
             $this->syncModule($module);
         });
+    }
+
+
+    public function modulesKeyValuePair(): array
+    {
+        return $this->modules()->mapWithKeys(fn(Module $module) => [
+            $module->getLowerName() => $module->get('title', $module->getName())
+        ])->toArray();
+    }
+
+    public function modules(): \Illuminate\Support\Collection
+    {
+        return collect(ModuleActivator::all());
     }
 
     private static function moduleNameFromPackage($package)

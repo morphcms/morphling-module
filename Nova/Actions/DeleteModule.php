@@ -2,10 +2,23 @@
 
 namespace Modules\Morphling\Nova\Actions;
 
-class DeleteModule extends BulkModuleAction
+use Laravel\Nova\Fields\ActionFields;
+use Modules\Morphling\Services\Morphling;
+use Modules\Morphling\Utils\BulkActionFluent;
+
+class DeleteModule extends BulkAction
 {
-    public function moduleAction(\Modules\Morphling\Models\Module $model)
+
+    protected function getBulkActionOptions(BulkActionFluent $bulkActionFluent): BulkActionFluent
     {
-        $this->morphling()->uninstall($model);
+        return $bulkActionFluent
+            ->setResourceName('modules')
+            ->setActionName('delete');
+    }
+
+
+    public function runAction($model, ActionFields $fields)
+    {
+        app(Morphling::class)->uninstall($model);
     }
 }

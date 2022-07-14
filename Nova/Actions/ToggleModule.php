@@ -2,19 +2,32 @@
 
 namespace Modules\Morphling\Nova\Actions;
 
-class ToggleModule extends BulkModuleAction
+use Laravel\Nova\Fields\ActionFields;
+use Modules\Morphling\Services\Morphling;
+use Modules\Morphling\Utils\BulkActionFluent;
+
+class ToggleModule extends BulkAction
 {
+
     public function name()
     {
         return __('Enable/Disable Module');
     }
 
-    public function moduleAction(\Modules\Morphling\Models\Module $model)
+    protected function getBulkActionOptions(BulkActionFluent $bulkActionFluent): BulkActionFluent
     {
+        return $bulkActionFluent->setResourceName('modules');
+    }
+
+
+    public function runAction($model, ActionFields $fields)
+    {
+        $morph = app(Morphling::class);
+
         if ($model->enabled) {
-            $this->morphling()->disable($model);
+            $morph->disable($model);
         } else {
-            $this->morphling()->enable($model);
+            $morph->enable($model);
         }
     }
 }
