@@ -17,6 +17,4 @@ class UpdateModule extends BulkAction
     {
         return $bulkActionFluent->setResourceName('modules');
     }
-
-
 }

@@ -7,27 +7,29 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Laravel\Nova\Actions\Action;
-use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Notifications\NovaNotification;
 
 class BulkActionFluent
 {
-
     const DEFAULT_STRATEGY = 0;
+
     const BAIL_STRATEGY = 1;
+
     const TRANSACTION_STRATEGY = 2;
 
-
     protected string $resourceName = 'resources';
+
     protected string $actionName = 'updated';
+
     protected int $strategy = self::DEFAULT_STRATEGY;
 
     private ?Closure $successCallback = null;
+
     protected ?Closure $failCallback = null;
+
     private ?Closure $actionCallback = null;
+
     private bool $withNotifications = true;
-
-
 
     /**
      * Perform the action on the given models.
@@ -41,7 +43,7 @@ class BulkActionFluent
 
         switch ($this->strategy) {
             default:
-            case self::DEFAULT_STRATEGY;
+            case self::DEFAULT_STRATEGY:
                 $success = $this->useDefault($models, $report);
                 break;
             case self::BAIL_STRATEGY:
@@ -68,7 +70,6 @@ class BulkActionFluent
         return $this;
     }
 
-
     private function initReport(): \stdClass
     {
         $report = new \stdClass();
@@ -78,7 +79,6 @@ class BulkActionFluent
 
         return $report;
     }
-
 
     private function useDefault(Collection $models, object $report): bool
     {
@@ -92,10 +92,8 @@ class BulkActionFluent
             }
         }
 
-
         return true;
     }
-
 
     private function useBail(Collection $models, object $report): bool
     {
@@ -106,14 +104,12 @@ class BulkActionFluent
             }
 
             return true;
-
         } catch (\Exception $exception) {
             $this->logError($exception);
+
             return false;
         }
-
     }
-
 
     private function executeAction($model): void
     {
@@ -121,12 +117,13 @@ class BulkActionFluent
     }
 
     /**
-     * @param int $strategy
+     * @param  int  $strategy
      * @return BulkActionFluent
      */
     public function setStrategy(int $strategy): BulkActionFluent
     {
         $this->strategy = $strategy;
+
         return $this;
     }
 
@@ -136,7 +133,6 @@ class BulkActionFluent
 
         return $this;
     }
-
 
     public function setActionName(string $action): static
     {
@@ -166,6 +162,7 @@ class BulkActionFluent
     {
         if ($this->successCallback) {
             call_user_func_array($this->successCallback, [$report]);
+
             return;
         }
 
@@ -178,10 +175,11 @@ class BulkActionFluent
     {
         if ($this->failCallback) {
             call_user_func_array($this->failCallback, [$report]);
+
             return;
         }
 
-        $this->notify(__("Something went wrong."), NovaNotification::ERROR_TYPE);
+        $this->notify(__('Something went wrong.'), NovaNotification::ERROR_TYPE);
     }
 
     private function notify($message, $type): void
@@ -198,7 +196,7 @@ class BulkActionFluent
     }
 
     /**
-     * @param Closure $successCallback
+     * @param  Closure  $successCallback
      * @return BulkActionFluent
      */
     public function onSuccess(Closure $successCallback): BulkActionFluent
@@ -209,12 +207,13 @@ class BulkActionFluent
     }
 
     /**
-     * @param Closure $failCallback
+     * @param  Closure  $failCallback
      * @return BulkActionFluent
      */
     public function onFail(Closure $failCallback): BulkActionFluent
     {
         $this->failCallback = $failCallback;
+
         return $this;
     }
 

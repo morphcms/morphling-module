@@ -21,16 +21,15 @@ abstract class BulkAction extends Action implements ShouldQueue
     {
         $action = $this->getBulkActionOptions(app(BulkActionFluent::class));
 
-        $action->run($models, fn($model) => $this->runAction($model, $fields));
+        $action->run($models, fn ($model) => $this->runAction($model, $fields));
 
-        return Action::message(__("Processing :resource...", ['resource' => $action->getResourceName()]));
+        return Action::message(__('Processing :resource...', ['resource' => $action->getResourceName()]));
     }
 
     protected function getBulkActionOptions(BulkActionFluent $bulkActionFluent): BulkActionFluent
     {
         return $bulkActionFluent;
     }
-
 
     abstract public function runAction($model, ActionFields $fields);
 }

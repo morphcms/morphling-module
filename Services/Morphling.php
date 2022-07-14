@@ -23,7 +23,7 @@ class Morphling
     /**
      *  Collect all module tools.
      *
-     * @param array $tools
+     * @param  array  $tools
      * @return array
      */
     public static function getNovaTools(array $tools = []): array
@@ -63,7 +63,7 @@ class Morphling
     }
 
     /**
-     * @param string $package
+     * @param  string  $package
      * @return void
      *
      * @throws \Exception
@@ -83,11 +83,10 @@ class Morphling
         });
     }
 
-
     public function modulesKeyValuePair(): array
     {
-        return $this->modules()->mapWithKeys(fn(Module $module) => [
-            $module->getLowerName() => $module->get('title', $module->getName())
+        return $this->modules()->mapWithKeys(fn (Module $module) => [
+            $module->getLowerName() => $module->get('title', $module->getName()),
         ])->toArray();
     }
 
@@ -152,7 +151,7 @@ class Morphling
         }
     }
 
-    public function syncModule(\Nwidart\Modules\Laravel\Module|string $module)
+    public function syncModule(Module|string $module)
     {
         if (is_string($module)) {
             $module = ModuleActivator::findOrFail($module);

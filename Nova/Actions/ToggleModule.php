@@ -8,7 +8,6 @@ use Modules\Morphling\Utils\BulkActionFluent;
 
 class ToggleModule extends BulkAction
 {
-
     public function name()
     {
         return __('Enable/Disable Module');
@@ -18,7 +17,6 @@ class ToggleModule extends BulkAction
     {
         return $bulkActionFluent->setResourceName('modules');
     }
-
 
     public function runAction($model, ActionFields $fields)
     {
