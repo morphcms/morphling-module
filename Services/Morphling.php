@@ -6,9 +6,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Laravel\Nova\LogViewer\LogViewer;
+use Modules\Morphling\Events\BootModulesNovaDashboards;
 use Modules\Morphling\Events\BootModulesNovaTools;
 use Modules\Morphling\Models\Module as ModuleEntity;
 use Modules\Morphling\Nova\MorphTool;
+use Modules\Morphling\Utils\DataAggregator;
 use Nwidart\Modules\Facades\Module as ModuleActivator;
 use Nwidart\Modules\Laravel\Module;
 use Nwidart\Modules\Process\Installer;
@@ -20,23 +22,31 @@ class Morphling
         return URL::format(config('frontend.client_url'), $path);
     }
 
+
+    public static function getNovaDashboards(array $dashboards = []): array
+    {
+        return DataAggregator::event(
+            event: new BootModulesNovaDashboards(),
+            mergeBefore: $dashboards
+        )->toArray();
+    }
+
     /**
      *  Collect all module tools.
      *
-     * @param  array  $tools
+     * @param array $tools
      * @return array
      */
     public static function getNovaTools(array $tools = []): array
     {
-        return collect([
-            ...event(new BootModulesNovaTools()),
-            MorphTool::make(),
-            LogViewer::make()->canSeeWhen('viewLogs'),
-        ])
-            ->filter() // Filter out empty values
-            ->flatten()
-            ->merge($tools)
-            ->toArray();
+        return DataAggregator::event(
+            event: new BootModulesNovaTools(),
+            mergeAfter: [
+                MorphTool::make(),
+                LogViewer::make()->canSeeWhen('viewLogs'),
+            ],
+            mergeBefore: $tools
+        )->toArray();
     }
 
     public function fetchModulesFromRepository(): array
@@ -63,7 +73,7 @@ class Morphling
     }
 
     /**
-     * @param  string  $package
+     * @param string $package
      * @return void
      *
      * @throws \Exception
@@ -85,7 +95,7 @@ class Morphling
 
     public function modulesKeyValuePair(): array
     {
-        return $this->modules()->mapWithKeys(fn (Module $module) => [
+        return $this->modules()->mapWithKeys(fn(Module $module) => [
             $module->getLowerName() => $module->get('title', $module->getName()),
         ])->toArray();
     }
