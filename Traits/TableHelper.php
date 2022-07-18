@@ -9,7 +9,7 @@ trait TableHelper
 {
     public static function __callStatic(string $name, array $arguments)
     {
-        return static::prefix().collect($arguments)->join('.');
+        return static::prefix() . $name .collect($arguments)->join('.');
     }
 
     protected static function prefix(): string
