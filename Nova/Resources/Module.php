@@ -15,7 +15,6 @@ use Modules\Morphling\Nova\Actions\InstallModule;
 use Modules\Morphling\Nova\Actions\SyncModules;
 use Modules\Morphling\Nova\Actions\ToggleModule;
 use Modules\Morphling\Nova\Actions\UpdateModule;
-use Outl1ne\MultiselectField\Multiselect;
 
 class Module extends Resource
 {
@@ -59,18 +58,17 @@ class Module extends Resource
                 ->sortable()
                 ->filterable()
                 ->hideFromIndex()
-                ->default(fn() => 0),
+                ->default(fn () => 0),
 
             $this->arrayField(__('Keywords'), 'keywords'),
             $this->arrayField(__('Requirements'), 'requirements'),
         ];
     }
 
-
     private function arrayField($label, $attribute): Textarea
     {
         return Textarea::make($label, $attribute)
-            ->resolveUsing(fn() => Arr::join($this->{$attribute}, ', '))
+            ->resolveUsing(fn () => Arr::join($this->{$attribute}, ', '))
             ->showOnPreview()
             ->rows(2);
     }
@@ -78,7 +76,7 @@ class Module extends Resource
     public function actions(NovaRequest $request)
     {
         return [
-            ToggleModule::make()->showInline()->canSee(fn() => $request->user()->can([ModulePermission::Enable->value, ModulePermission::Disable->value])),
+            ToggleModule::make()->showInline()->canSee(fn () => $request->user()->can([ModulePermission::Enable->value, ModulePermission::Disable->value])),
             UpdateModule::make()->showInline()->canSeeWhen(ModulePermission::Update->value),
             DeleteModule::make()->showInline()->exceptOnIndex()->canSeeWhen(ModulePermission::Delete->value),
             SyncModules::make()->standalone()->canSeeWhen(ModulePermission::ViewAny->value),
