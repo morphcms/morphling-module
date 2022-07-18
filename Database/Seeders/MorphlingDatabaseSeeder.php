@@ -23,7 +23,6 @@ class MorphlingDatabaseSeeder extends Seeder
 
         app(Morphling::class)->syncModules();
 
-
         $this->acl('morph')
             ->onlyWebGuard()
             ->attachEnum(ModulePermission::class)
