@@ -3,16 +3,31 @@
 namespace Modules\Morphling\Traits;
 
 use App\Models\User;
+use Modules\Morphling\Contracts\CanOwnModels;
 
 trait HasOwner
 {
-    protected function ownerColumnName(): string
+    public function ownerColumnName(): string
     {
         return 'user_id';
     }
 
-    public function isOwnedBy(User $user): bool
+    public function isOwnedBy(CanOwnModels $owner): bool
     {
-        return $user->id === $this[$this->ownerColumnName()];
+        return $owner->getKey() === $this[$this->ownerColumnName()];
+    }
+
+    public function scopeWhereOwnedBy($query, $ownerId)
+    {
+        return $query
+            ->where($this->ownerColumnName(), $ownerId)
+            ->whereNotNull($this->ownerColumnName());
+    }
+
+    public function scopeWhereNullOrOwnedBy($query, $ownerId)
+    {
+        return $query
+            ->where($this->ownerColumnName(), $ownerId)
+            ->orWhereNull($this->ownerColumnName());
     }
 }
