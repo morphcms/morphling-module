@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Laravel\Nova\LogViewer\LogViewer;
-use Modules\Morphling\Events\RegisterModulesNovaTools;
+use Modules\Morphling\Events\BootModulesNovaTools;
 use Modules\Morphling\Models\Module as ModuleEntity;
 use Modules\Morphling\Nova\MorphTool;
 use Nwidart\Modules\Facades\Module as ModuleActivator;
@@ -29,7 +29,7 @@ class Morphling
     public static function getNovaTools(array $tools = []): array
     {
         return collect([
-            ...event(new RegisterModulesNovaTools()),
+            ...event(new BootModulesNovaTools()),
             MorphTool::make(),
             LogViewer::make()->canSeeWhen('viewLogs'),
         ])

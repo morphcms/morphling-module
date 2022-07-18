@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
+use Modules\Morphling\Enums\ModulePermission;
 use Modules\Morphling\Nova\Resources\Module;
 
 class MorphTool extends Tool
@@ -23,6 +24,6 @@ class MorphTool extends Tool
     {
         return MenuSection::resource(Module::class)
             ->icon('chip')
-            ->canSee(fn () => true);
+            ->canSee(fn() => $request->user()->can(ModulePermission::ViewAny->value));
     }
 }

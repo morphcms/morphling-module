@@ -9,8 +9,10 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
+use Modules\Morphling\Enums\ModulePermission;
 use Modules\Morphling\Nova\Actions\DeleteModule;
 use Modules\Morphling\Nova\Actions\InstallModule;
+use Modules\Morphling\Nova\Actions\SyncModules;
 use Modules\Morphling\Nova\Actions\ToggleModule;
 use Modules\Morphling\Nova\Actions\UpdateModule;
 
@@ -56,15 +58,15 @@ class Module extends Resource
                 ->sortable()
                 ->filterable()
                 ->hideFromIndex()
-                ->default(fn () => 0),
+                ->default(fn() => 0),
 
             Textarea::make(__('Keywords'), 'keywords')
                 ->showOnPreview()
-                ->displayUsing(fn () => Arr::join($this->keywords, ', '))
+                ->displayUsing(fn() => Arr::join($this->keywords, ', '))
                 ->rows(1),
 
             Textarea::make(__('Requirements'), 'requirements')
-                ->displayUsing(fn () => Arr::join($this->requirements, ', '))
+                ->displayUsing(fn() => Arr::join($this->requirements, ', '))
                 ->rows(2),
 
         ];
@@ -73,10 +75,11 @@ class Module extends Resource
     public function actions(NovaRequest $request)
     {
         return [
-            ToggleModule::make()->showInline(),
-            UpdateModule::make()->showInline(),
-            DeleteModule::make()->showInline()->exceptOnIndex(),
-            // InstallModule::make()->standalone(), // TODO: Not working yet. Modules must be installed manually
+            ToggleModule::make()->showInline()->canSee(fn() => $request->user()->can([ModulePermission::Enable->value, ModulePermission::Disable->value])),
+            UpdateModule::make()->showInline()->canSeeWhen(ModulePermission::Update->value),
+            DeleteModule::make()->showInline()->exceptOnIndex()->canSeeWhen(ModulePermission::Delete->value),
+            SyncModules::make()->standalone()->canSeeWhen(ModulePermission::ViewAny->value),
+            //InstallModule::make()->standalone()->canSeeWhen(ModulePermission::Install->value), // TODO: Not working yet. Modules must be installed manually
         ];
     }
 }

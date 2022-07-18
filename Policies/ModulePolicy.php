@@ -4,6 +4,7 @@ namespace Modules\Morphling\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Modules\Morphling\Enums\ModulePermission;
 use Modules\Morphling\Models\Module;
 
 class ModulePolicy
@@ -20,14 +21,14 @@ class ModulePolicy
         //
     }
 
-    public function viewAny()
+    public function viewAny(User $user)
     {
-        return true;
+        return $user->can(ModulePermission::ViewAny->value);
     }
 
     public function view(User $user, Module $module)
     {
-        return true;
+        return $user->can(ModulePermission::View->value);
     }
 
     public function create(User $user)
