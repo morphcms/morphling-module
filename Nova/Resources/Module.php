@@ -15,6 +15,7 @@ use Modules\Morphling\Nova\Actions\InstallModule;
 use Modules\Morphling\Nova\Actions\SyncModules;
 use Modules\Morphling\Nova\Actions\ToggleModule;
 use Modules\Morphling\Nova\Actions\UpdateModule;
+use Outl1ne\MultiselectField\Multiselect;
 
 class Module extends Resource
 {
@@ -60,16 +61,18 @@ class Module extends Resource
                 ->hideFromIndex()
                 ->default(fn() => 0),
 
-            Textarea::make(__('Keywords'), 'keywords')
-                ->showOnPreview()
-                ->displayUsing(fn() => Arr::join($this->keywords, ', '))
-                ->rows(1),
-
-            Textarea::make(__('Requirements'), 'requirements')
-                ->displayUsing(fn() => Arr::join($this->requirements, ', '))
-                ->rows(2),
-
+            $this->arrayField(__('Keywords'), 'keywords'),
+            $this->arrayField(__('Requirements'), 'requirements'),
         ];
+    }
+
+
+    private function arrayField($label, $attribute): Textarea
+    {
+        return Textarea::make($label, $attribute)
+            ->resolveUsing(fn() => Arr::join($this->{$attribute}, ', '))
+            ->showOnPreview()
+            ->rows(2);
     }
 
     public function actions(NovaRequest $request)
