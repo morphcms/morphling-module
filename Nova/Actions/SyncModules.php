@@ -8,8 +8,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Modules\Morphling\Services\Morphling;
 
 class SyncModules extends Action implements ShouldQueue
@@ -23,14 +21,13 @@ class SyncModules extends Action implements ShouldQueue
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-
         try {
             $this->morphling()->syncModules();
         } catch (\Exception $exception) {
             return Action::danger($exception->getMessage());
         }
 
-        return Action::message(__("Modules synced!"));
+        return Action::message(__('Modules synced!'));
     }
 
     private function morphling(): Morphling

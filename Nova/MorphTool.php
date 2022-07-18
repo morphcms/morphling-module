@@ -24,6 +24,6 @@ class MorphTool extends Tool
     {
         return MenuSection::resource(Module::class)
             ->icon('chip')
-            ->canSee(fn() => $request->user()->can(ModulePermission::ViewAny->value));
+            ->canSee(fn () => $request->user()->can(ModulePermission::ViewAny->value));
     }
 }

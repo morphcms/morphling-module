@@ -58,15 +58,15 @@ class Module extends Resource
                 ->sortable()
                 ->filterable()
                 ->hideFromIndex()
-                ->default(fn() => 0),
+                ->default(fn () => 0),
 
             Textarea::make(__('Keywords'), 'keywords')
                 ->showOnPreview()
-                ->displayUsing(fn() => Arr::join($this->keywords, ', '))
+                ->displayUsing(fn () => Arr::join($this->keywords, ', '))
                 ->rows(1),
 
             Textarea::make(__('Requirements'), 'requirements')
-                ->displayUsing(fn() => Arr::join($this->requirements, ', '))
+                ->displayUsing(fn () => Arr::join($this->requirements, ', '))
                 ->rows(2),
 
         ];
@@ -75,7 +75,7 @@ class Module extends Resource
     public function actions(NovaRequest $request)
     {
         return [
-            ToggleModule::make()->showInline()->canSee(fn() => $request->user()->can([ModulePermission::Enable->value, ModulePermission::Disable->value])),
+            ToggleModule::make()->showInline()->canSee(fn () => $request->user()->can([ModulePermission::Enable->value, ModulePermission::Disable->value])),
             UpdateModule::make()->showInline()->canSeeWhen(ModulePermission::Update->value),
             DeleteModule::make()->showInline()->exceptOnIndex()->canSeeWhen(ModulePermission::Delete->value),
             SyncModules::make()->standalone()->canSeeWhen(ModulePermission::ViewAny->value),
