@@ -8,8 +8,7 @@ namespace Modules\Morphling\Contracts;
  */
 interface CanBeOwned
 {
+    public function ownerColumnName(): string;
 
-    function ownerColumnName(): string;
-    function isOwnedBy(CanOwnModels $owner);
-
+    public function isOwnedBy(CanOwnModels $owner);
 }
