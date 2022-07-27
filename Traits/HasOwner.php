@@ -2,7 +2,6 @@
 
 namespace Modules\Morphling\Traits;
 
-use App\Models\User;
 use Modules\Morphling\Contracts\CanOwnModels;
 
 trait HasOwner
