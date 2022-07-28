@@ -16,8 +16,12 @@ trait HasOwner
         return $this[$this->ownerColumnName()];
     }
 
-    public function isOwnedBy(CanOwnModels $owner): bool
+    public function isOwnedBy(?CanOwnModels $owner): bool
     {
+        if (!$owner) {
+            return false;
+        }
+
         return $owner->getKey() === $this->ownerId();
     }
 
