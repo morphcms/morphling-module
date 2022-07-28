@@ -18,7 +18,7 @@ trait HasOwner
 
     public function isOwnedBy(?CanOwnModels $owner): bool
     {
-        if (!$owner) {
+        if (! $owner) {
             return false;
         }
 
