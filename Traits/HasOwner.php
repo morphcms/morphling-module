@@ -11,9 +11,14 @@ trait HasOwner
         return 'user_id';
     }
 
+    public function ownerId()
+    {
+        return $this[$this->ownerColumnName()];
+    }
+
     public function isOwnedBy(CanOwnModels $owner): bool
     {
-        return $owner->getKey() === $this[$this->ownerColumnName()];
+        return $owner->getKey() === $this->ownerId();
     }
 
     public function scopeWhereOwnedBy($query, $ownerId)
