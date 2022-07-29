@@ -7,6 +7,7 @@ use Illuminate\Database\Query\Builder;
 
 /**
  * @mixin Model
+ *
  * @method enabled(): static
  * @method disabled(): static
  */
@@ -19,10 +20,9 @@ trait HasToggle
 
     public function toggle(): bool
     {
-
         $column = $this->toggleColumn();
 
-        return $this->update([$column => !$this->{$column}]);
+        return $this->update([$column => ! $this->{$column}]);
     }
 
     public function enable(): bool
