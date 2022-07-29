@@ -19,7 +19,7 @@ class Morphling
 {
     public static function clientUrl($path = '/'): string
     {
-        return URL::format(config('frontend.client_url'), $path);
+        return URL::format(config('app.frontend_url'), $path);
     }
 
     public static function getNovaDashboards(array $dashboards = []): array
