@@ -7,9 +7,15 @@ namespace Modules\Morphling\Traits;
  */
 trait TableHelper
 {
-    public static function __callStatic(string $name, array $arguments)
+    public static function __callStatic(string $name, array $arguments = [])
     {
-        return static::prefix().$name.collect($arguments)->join('.');
+        $table = static::prefix().$name;
+        if(empty($arguments)){
+           return $table;
+        }
+
+
+        return $table . '.' .collect($arguments)->join('.');
     }
 
     protected static function prefix(): string
