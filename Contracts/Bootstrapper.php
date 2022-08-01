@@ -2,10 +2,9 @@
 
 namespace Modules\Morphling\Contracts;
 
-use Closure;
-use Illuminate\Support\Collection;
+use Modules\Morphling\Events\FrontendBootstrap;
 
 interface Bootstrapper
 {
-    public function boot(Collection $data, Closure $next): Collection;
+    public function handle(FrontendBootstrap $event): mixed;
 }

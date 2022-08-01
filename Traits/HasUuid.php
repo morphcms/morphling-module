@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
- *
  * @mixin Model
+ *
  * @property string $uuid
  */
 trait HasUuid
 {
-
     /**
      * The "booting" method of the model.
      */
@@ -26,10 +25,8 @@ trait HasUuid
         });
     }
 
-
     protected function getUuidKeyName(): string
     {
         return 'uuid';
     }
-
 }

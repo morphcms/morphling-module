@@ -1,7 +1,7 @@
 {
     "name": "Morphling",
     "alias": "morphling",
-    "description": "",
+    "description": "The core module of the Morph CMS platform",
     "keywords": [],
     "priority": 0,
     "providers": [
@@ -9,5 +9,9 @@
     ],
     "aliases": {},
     "files": [],
-    "requires": []
+    "requires": [],
+    "minimumCoreVersion": "",
+    "title": "Morph Core",
+    "version": "0.0.0",
+    "author": "Binome Way"
 }

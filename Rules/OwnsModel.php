@@ -9,8 +9,11 @@ use JetBrains\PhpStorm\Pure;
 class OwnsModel implements Rule
 {
     private User $owner;
+
     private string $model;
+
     private string $modelAttributeColumn;
+
     private string $ownerReferenceColumn;
 
     /**
@@ -26,16 +29,17 @@ class OwnsModel implements Rule
         $this->ownerReferenceColumn = $ownerReferenceColumn;
     }
 
-    #[Pure] public static function make(...$args): static
-    {
-        return new static(...$args);
-    }
+    #[Pure]
+ public static function make(...$args): static
+ {
+     return new static(...$args);
+ }
 
     /**
      * Determine if the validation rule passes.
      *
-     * @param string $attribute
-     * @param mixed $value
+     * @param  string  $attribute
+     * @param  mixed  $value
      * @return bool
      */
     public function passes($attribute, $value)
