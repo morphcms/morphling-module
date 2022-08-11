@@ -21,6 +21,7 @@ class Morphling
 {
     /**
      * @deprecated Use MorphTool instead
+     *
      * @param $path
      * @return string
      */
@@ -31,7 +32,8 @@ class Morphling
 
     /**
      * @deprecated Use MorphTool Instead
-     * @param array $dashboards
+     *
+     * @param  array  $dashboards
      * @return array
      */
     public static function getNovaDashboards(array $dashboards = []): array
@@ -44,8 +46,10 @@ class Morphling
 
     /**
      *  Collect all module tools.
+     *
      * @deprecated Use MorphTool Instead
-     * @param array $tools
+     *
+     * @param  array  $tools
      * @return array
      */
     public static function getNovaTools(array $tools = []): array
@@ -87,7 +91,7 @@ class Morphling
     }
 
     /**
-     * @param string $package
+     * @param  string  $package
      * @return void
      *
      * @throws \Exception
@@ -109,7 +113,7 @@ class Morphling
 
     public function modulesKeyValuePair(): array
     {
-        return $this->modules()->mapWithKeys(fn(Module $module) => [
+        return $this->modules()->mapWithKeys(fn (Module $module) => [
             $module->getLowerName() => $module->get('title', $module->getName()),
         ])->toArray();
     }

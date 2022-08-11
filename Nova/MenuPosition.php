@@ -12,9 +12,13 @@ class MenuPosition implements Arrayable
     use Makeable;
 
     private string $id;
+
     private string $name;
+
     private bool $unique = true;
+
     private int $depth = 4;
+
     private array $itemTypes = [];
 
     public function __construct(string $id, string $name = null)
@@ -32,12 +36,13 @@ class MenuPosition implements Arrayable
     }
 
     /**
-     * @param string $id
+     * @param  string  $id
      * @return MenuPosition
      */
     public function setId(string $id): MenuPosition
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -50,12 +55,13 @@ class MenuPosition implements Arrayable
     }
 
     /**
-     * @param string $name
+     * @param  string  $name
      * @return MenuPosition
      */
     public function setName(string $name): MenuPosition
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -68,12 +74,13 @@ class MenuPosition implements Arrayable
     }
 
     /**
-     * @param bool $unique
+     * @param  bool  $unique
      * @return MenuPosition
      */
     public function setUnique(bool $unique): MenuPosition
     {
         $this->unique = $unique;
+
         return $this;
     }
 
@@ -86,12 +93,13 @@ class MenuPosition implements Arrayable
     }
 
     /**
-     * @param int $depth
+     * @param  int  $depth
      * @return MenuPosition
      */
     public function setDepth(int $depth): MenuPosition
     {
         $this->depth = $depth;
+
         return $this;
     }
 
@@ -104,12 +112,13 @@ class MenuPosition implements Arrayable
     }
 
     /**
-     * @param array $itemTypes
+     * @param  array  $itemTypes
      * @return MenuPosition
      */
     public function setItemTypes(array $itemTypes): MenuPosition
     {
         $this->itemTypes = $itemTypes;
+
         return $this;
     }
 

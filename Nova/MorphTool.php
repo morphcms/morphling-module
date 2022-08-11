@@ -11,10 +11,10 @@ use Laravel\Nova\Tool;
 use Modules\Acl\Enums\GenericPermission;
 use Modules\Morphling\Enums\MenuPermission;
 use Modules\Morphling\Enums\ModulePermission;
-use Modules\Morphling\Events\BootNovaMenuPositions;
-use Modules\Morphling\Events\BootNovaMenuTypes;
 use Modules\Morphling\Events\BootModulesNovaDashboards;
 use Modules\Morphling\Events\BootModulesNovaTools;
+use Modules\Morphling\Events\BootNovaMenuPositions;
+use Modules\Morphling\Events\BootNovaMenuTypes;
 use Modules\Morphling\Nova\Resources\Module;
 use Modules\Morphling\Utils\DataAggregator;
 use Outl1ne\MenuBuilder\MenuBuilder;
@@ -25,7 +25,6 @@ class MorphTool extends Tool
         Module::class,
     ];
 
-
     public function boot()
     {
         Nova::resources(static::$resources);
@@ -35,7 +34,7 @@ class MorphTool extends Tool
     {
         return MenuSection::resource(Module::class)
             ->icon('chip')
-            ->canSee(fn() => $request->user()->can(ModulePermission::ViewAny->value));
+            ->canSee(fn () => $request->user()->can(ModulePermission::ViewAny->value));
     }
 
     public function getLocales()
@@ -59,7 +58,7 @@ class MorphTool extends Tool
     /**
      *  Collect all module tools.
      *
-     * @param array $tools
+     * @param  array  $tools
      * @return array
      */
     public static function getNovaTools(array $tools = []): array
@@ -84,7 +83,7 @@ class MorphTool extends Tool
             MenuPosition::make('footer')->setDepth(2),
             MenuPosition::make('user_dashboard')->setDepth(2),
             MenuPosition::make('user_menu')->setDepth(1),
-        ])->mapWithKeys(fn(MenuPosition $position) => [$position->getId() => $position->toArray()])
+        ])->mapWithKeys(fn (MenuPosition $position) => [$position->getId() => $position->toArray()])
             ->toArray();
     }
 

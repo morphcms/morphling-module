@@ -14,14 +14,14 @@ trait HasMediaTransformer
 {
     public function mediaSingleTransformer($collection = 'default')
     {
-        return $this->whenLoaded('media', fn() => $this->getFirstMediaUrl($collection));
+        return $this->whenLoaded('media', fn () => $this->getFirstMediaUrl($collection));
     }
 
     public function mediaTransformer($collection = 'default')
     {
         return $this->whenLoaded('media',
-            fn() => $this->getMedia($collection)
-            ->map(fn(Media $media) => $media->getFullUrl())
+            fn () => $this->getMedia($collection)
+            ->map(fn (Media $media) => $media->getFullUrl())
         );
     }
 }
