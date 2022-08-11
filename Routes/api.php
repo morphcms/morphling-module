@@ -1,5 +1,10 @@
 <?php
 
-use Modules\Morphling\Http\Controllers\BootstrapController;
+use Modules\Morphling\Http\Controllers\V1\BootstrapController;
 
-Route::get('/morphling/bootstrap', BootstrapController::class);
+Route::group(['prefix' => 'v1'], function(){
+    Route::get('/bootstrap', BootstrapController::class);
+    Route::get('/menus', [\Modules\Morphling\Http\Controllers\V1\MenuController::class, 'index']);
+    Route::get('/menus/{slug}/{locale?}', [\Modules\Morphling\Http\Controllers\V1\MenuController::class, 'show']);
+});
+

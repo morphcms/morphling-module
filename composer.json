@@ -23,7 +23,8 @@
         "laravel/nova": "^4.0",
         "maatwebsite/excel": "^3.1",
         "laravel/nova-log-viewer": "^0.1.2",
-        "spatie/laravel-responsecache": "^7.3"
+        "spatie/laravel-responsecache": "^7.3",
+        "outl1ne/nova-menu-builder": "^7.0.10"
     },
     "repositories": [
         {

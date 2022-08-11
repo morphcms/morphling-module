@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Morphling\Http\Controllers;
+namespace Modules\Morphling\Http\Controllers\V1;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
